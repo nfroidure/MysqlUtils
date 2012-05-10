@@ -25,7 +25,9 @@ fi
 
 if [ "$MYSQL_PASSWORD" = "" ]; then
 	echo "Enter password of user : $user";
-	read password;
+	stty -echo
+	read password
+	stty echo
 else
 	password=$MYSQL_PASSWORD
 fi
