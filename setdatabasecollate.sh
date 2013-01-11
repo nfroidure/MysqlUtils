@@ -2,38 +2,24 @@
 # Copyright 2012 Elitwork
 # Distributed under the terms of the GNU General Public License v2
 
-# Init
-cd /
+# Params
+sitedatabase=$1;
+verbose=$2;
 
 # Config
-MYSQL_USER="root"
-MYSQL_PASSWORD=""
+set -- $($(dirname $0)/credentials.sh);
+user=$1;
+password=$2;
 
-sitedatabase=$1
-user=$2
-verbose=$3
-
+# Help
 if [ "$sitedatabase" = "" ]; then
 	echo "Set database collation as UTF8";
-	echo "$0 : 1:sitedatabase 2:user 3:verbose(yes|no)";
+	echo "$(basename $0) 1:sitedatabase 2:verbose(yes|no)";
 	exit;
 fi
 
-if [ "$user" = "" ]; then
-	user=$MYSQL_USER;
-fi
-
-if [ "$MYSQL_PASSWORD" = "" ]; then
-	echo "Enter password of user : $user";
-	stty -echo
-	read password
-	stty echo
-else
-	password=$MYSQL_PASSWORD
-fi
-
 if [ "$verbose" != "yes" ] && [ "$verbose" != "no" ]; then
-	verbose="no"
+	verbose="no";
 fi
 
 echo "# Setting UTF8 for database $sitedatabase"
